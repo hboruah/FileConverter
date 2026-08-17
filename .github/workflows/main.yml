@@ -20,20 +20,25 @@ jobs:
       - name: Download FFmpeg 9.0 full
         shell: pwsh
         run: |
-          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.zip"
-          $zip = "$env:RUNNER_TEMP\ffmpeg.zip"
+          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.7z"
+          $archive = "$env:RUNNER_TEMP\ffmpeg.7z"
           $extract = "$env:RUNNER_TEMP\ffmpeg"
 
-          Invoke-WebRequest -Uri $url -OutFile $zip
+          Invoke-WebRequest -Uri $url -OutFile $archive
 
           if (Test-Path $extract) {
               Remove-Item $extract -Recurse -Force
           }
 
-          Expand-Archive -Path $zip -DestinationPath $extract -Force
+          New-Item -ItemType Directory -Force -Path $extract | Out-Null
 
-          $ffmpeg = Get-ChildItem -Path $extract -Filter "ffmpeg.exe" -Recurse |
-              Select-Object -First 1
+          7z x $archive "-o$extract" -y
+
+          $ffmpeg = Get-ChildItem `
+            -Path $extract `
+            -Filter "ffmpeg.exe" `
+            -Recurse |
+            Select-Object -First 1
 
           if (-not $ffmpeg) {
               throw "ffmpeg.exe was not found in the downloaded archive."
@@ -41,8 +46,12 @@ jobs:
 
           New-Item -ItemType Directory -Force -Path "Middleware\ffmpeg" | Out-Null
 
-          Copy-Item $ffmpeg.FullName "Middleware\ffmpeg\ffmpeg.exe" -Force
+          Copy-Item `
+            $ffmpeg.FullName `
+            "Middleware\ffmpeg\ffmpeg.exe" `
+            -Force
 
+          Write-Host "FFmpeg found at: $($ffmpeg.FullName)"
           & "Middleware\ffmpeg\ffmpeg.exe" -version
 
       # ------------------------------------------------------------
@@ -82,17 +91,12 @@ jobs:
             "$output\ffmpeg.exe" `
             -Force
 
+          Write-Host "FFmpeg copied to application output."
+
           & "$output\ffmpeg.exe" -version
 
       # ------------------------------------------------------------
       # Ghostscript 10.02.1
-      #
-      # File Converter's installer expects:
-      #   gsdll64.dll
-      #   gswin64c.exe
-      #
-      # We install Ghostscript temporarily on the runner, then copy
-      # only those two files into the File Converter output directory.
       # ------------------------------------------------------------
       - name: Download Ghostscript 10.02.1
         shell: pwsh
@@ -109,9 +113,6 @@ jobs:
 
           New-Item -ItemType Directory -Force -Path $gsRoot | Out-Null
 
-          # NSIS installer:
-          # /S = silent installation
-          # /D= = installation directory (must be last)
           $process = Start-Process `
             -FilePath $installer `
             -ArgumentList @("/S", "/D=$gsRoot") `
@@ -144,11 +145,13 @@ jobs:
 
           $output = "Application\FileConverter\bin\x64\Release"
 
-          Copy-Item $gsExe.FullName `
+          Copy-Item `
+            $gsExe.FullName `
             "$output\gswin64c.exe" `
             -Force
 
-          Copy-Item $gsDll.FullName `
+          Copy-Item `
+            $gsDll.FullName `
             "$output\gsdll64.dll" `
             -Force
 
@@ -158,7 +161,7 @@ jobs:
           Write-Host "Ghostscript files copied successfully."
 
       # ------------------------------------------------------------
-      # Verify all middleware required by the installer
+      # Verify application middleware
       # ------------------------------------------------------------
       - name: Verify application middleware
         shell: pwsh
@@ -179,7 +182,13 @@ jobs:
                   throw "Required file is missing: $path"
               }
 
-              Write-Host "Found: $file"
+              $size = (Get-Item $path).Length
+
+              if ($size -eq 0) {
+                  throw "Required file is empty: $path"
+              }
+
+              Write-Host "Found: $file ($size bytes)"
           }
 
       # ------------------------------------------------------------
