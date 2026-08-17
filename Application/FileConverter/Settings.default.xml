@@ -192,6 +192,7 @@
         <InputTypes>webm</InputTypes>
         <InputTypes>wmv</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -237,6 +238,7 @@
         <InputTypes>webm</InputTypes>
         <InputTypes>wmv</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -644,6 +646,7 @@
     <ConversionPreset Name="To Ico" OutputType="Ico" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -678,6 +681,7 @@
         <InputTypes>xls</InputTypes>
         <InputTypes>xlsx</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -845,6 +849,7 @@
     <ConversionPreset Name="Scale 75%/To Png" OutputType="Png" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -874,6 +879,7 @@
     <ConversionPreset Name="Scale 75%/To Webp" OutputType="Webp" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -904,6 +910,7 @@
     <ConversionPreset Name="Scale 75%/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1076,6 +1083,7 @@
     <ConversionPreset Name="Scale 50%/To Png" OutputType="Png" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1105,6 +1113,7 @@
     <ConversionPreset Name="Scale 50%/To Webp" OutputType="Webp" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1135,6 +1144,7 @@
     <ConversionPreset Name="Scale 50%/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1307,6 +1317,7 @@
     <ConversionPreset Name="Scale 25%/To Png" OutputType="Png" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1336,6 +1347,7 @@
     <ConversionPreset Name="Scale 25%/To Webp" OutputType="Webp" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1366,6 +1378,7 @@
     <ConversionPreset Name="Scale 25%/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1849,7 +1862,9 @@
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate left/To Png" OutputType="Png" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -1878,6 +1893,7 @@
     </ConversionPreset>
     <ConversionPreset Name="Rotate left/To Webp" OutputType="Webp" IsDefaultSettings="true">
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>exr</InputTypes>
@@ -1908,6 +1924,7 @@
     </ConversionPreset>
     <ConversionPreset Name="Rotate left/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>exr</InputTypes>
@@ -2108,7 +2125,9 @@
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate right/To Png" OutputType="Png" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>exr</InputTypes>
@@ -2138,6 +2157,7 @@
     <ConversionPreset Name="Rotate right/To Webp" OutputType="Webp" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -2168,6 +2188,7 @@
     <ConversionPreset Name="Rotate right/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
         <InputTypes>bmp</InputTypes>
         <InputTypes>cr2</InputTypes>
         <InputTypes>dds</InputTypes>
