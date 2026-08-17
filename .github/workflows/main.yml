@@ -17,12 +17,14 @@ jobs:
       - name: Download FFmpeg 9.0 full
         shell: pwsh
         run: |
-          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.zip"
-          $zip = "$env:RUNNER_TEMP\ffmpeg.zip"
+          $url = "https://github.com/GyanD/codexffmpeg/releases/download/9.0/ffmpeg-9.0-full_build.7z"
+          $archive = "$env:RUNNER_TEMP\ffmpeg.7z"
           $extract = "$env:RUNNER_TEMP\ffmpeg"
 
-          Invoke-WebRequest -Uri $url -OutFile $zip
-          Expand-Archive -Path $zip -DestinationPath $extract -Force
+          Invoke-WebRequest -Uri $url -OutFile $archive
+
+          New-Item -ItemType Directory -Force -Path $extract | Out-Null
+          7z x $archive "-o$extract" -y
 
           $ffmpeg = Get-ChildItem -Path $extract -Filter "ffmpeg.exe" -Recurse |
                     Select-Object -First 1
@@ -34,6 +36,7 @@ jobs:
           New-Item -ItemType Directory -Force -Path "Middleware\ffmpeg" | Out-Null
           Copy-Item $ffmpeg.FullName "Middleware\ffmpeg\ffmpeg.exe" -Force
 
+          Write-Host "FFmpeg version:"
           & "Middleware\ffmpeg\ffmpeg.exe" -version
 
       - name: Restore NuGet packages
@@ -45,6 +48,18 @@ jobs:
           /p:Configuration=Release
           /p:Platform=x64
           /p:RestorePackagesConfig=true
+
+      - name: Verify FFmpeg in application output
+        shell: pwsh
+        run: |
+          $ffmpeg = "Application\FileConverter\bin\x64\Release\ffmpeg.exe"
+
+          if (-not (Test-Path $ffmpeg)) {
+            throw "FFmpeg was not copied to the File Converter output directory."
+          }
+
+          Write-Host "FFmpeg found in application output:"
+          & $ffmpeg -version
 
       - name: Build installer
         run: >
