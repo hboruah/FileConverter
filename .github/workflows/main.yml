@@ -36,7 +36,7 @@ jobs:
           New-Item -ItemType Directory -Force -Path "Middleware\ffmpeg" | Out-Null
           Copy-Item $ffmpeg.FullName "Middleware\ffmpeg\ffmpeg.exe" -Force
 
-          Write-Host "FFmpeg version:"
+          Write-Host "Downloaded FFmpeg:"
           & "Middleware\ffmpeg\ffmpeg.exe" -version
 
       - name: Restore NuGet packages
@@ -49,23 +49,51 @@ jobs:
           /p:Platform=x64
           /p:RestorePackagesConfig=true
 
-      - name: Verify FFmpeg in application output
+      - name: Copy FFmpeg to application output
         shell: pwsh
         run: |
-          $ffmpeg = "Application\FileConverter\bin\x64\Release\ffmpeg.exe"
+          $source = "Middleware\ffmpeg\ffmpeg.exe"
+          $outputDir = "Application\FileConverter\bin\x64\Release"
+          $destination = "$outputDir\ffmpeg.exe"
 
-          if (-not (Test-Path $ffmpeg)) {
-            throw "FFmpeg was not copied to the File Converter output directory."
+          if (-not (Test-Path $source)) {
+            throw "Source FFmpeg was not found: $source"
           }
 
-          Write-Host "FFmpeg found in application output:"
-          & $ffmpeg -version
+          if (-not (Test-Path $outputDir)) {
+            throw "Application output directory was not found: $outputDir"
+          }
+
+          Copy-Item $source $destination -Force
+
+          if (-not (Test-Path $destination)) {
+            throw "FFmpeg could not be copied to the application output directory."
+          }
+
+          Write-Host "FFmpeg successfully copied to:"
+          Write-Host $destination
+
+          & $destination -version
 
       - name: Build installer
         run: >
           msbuild Installer\Installer.wixproj
           /p:Configuration=Release
           /p:Platform=x64
+
+      - name: Verify installer
+        shell: pwsh
+        run: |
+          $msi = Get-ChildItem "Installer\bin\x64\Release\*.msi" |
+                 Select-Object -First 1
+
+          if (-not $msi) {
+            throw "MSI installer was not created."
+          }
+
+          Write-Host "Installer created successfully:"
+          Write-Host $msi.FullName
+          Write-Host "Size: $($msi.Length) bytes"
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
