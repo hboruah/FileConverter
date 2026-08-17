@@ -14,87 +14,206 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
+      # ------------------------------------------------------------
+      # FFmpeg 9.0 full build from Gyan.dev
+      # ------------------------------------------------------------
       - name: Download FFmpeg 9.0 full
         shell: pwsh
         run: |
-          $url = "https://github.com/GyanD/codexffmpeg/releases/download/9.0/ffmpeg-9.0-full_build.7z"
-          $archive = "$env:RUNNER_TEMP\ffmpeg.7z"
+          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.zip"
+          $zip = "$env:RUNNER_TEMP\ffmpeg.zip"
           $extract = "$env:RUNNER_TEMP\ffmpeg"
 
-          Invoke-WebRequest -Uri $url -OutFile $archive
+          Invoke-WebRequest -Uri $url -OutFile $zip
 
-          New-Item -ItemType Directory -Force -Path $extract | Out-Null
-          7z x $archive "-o$extract" -y
+          if (Test-Path $extract) {
+              Remove-Item $extract -Recurse -Force
+          }
+
+          Expand-Archive -Path $zip -DestinationPath $extract -Force
 
           $ffmpeg = Get-ChildItem -Path $extract -Filter "ffmpeg.exe" -Recurse |
-                    Select-Object -First 1
+              Select-Object -First 1
 
           if (-not $ffmpeg) {
-            throw "ffmpeg.exe was not found in the downloaded archive."
+              throw "ffmpeg.exe was not found in the downloaded archive."
           }
 
           New-Item -ItemType Directory -Force -Path "Middleware\ffmpeg" | Out-Null
+
           Copy-Item $ffmpeg.FullName "Middleware\ffmpeg\ffmpeg.exe" -Force
 
-          Write-Host "Downloaded FFmpeg:"
           & "Middleware\ffmpeg\ffmpeg.exe" -version
 
+      # ------------------------------------------------------------
+      # Restore NuGet packages
+      # ------------------------------------------------------------
       - name: Restore NuGet packages
         run: nuget restore FileConverter.sln
 
+      # ------------------------------------------------------------
+      # Build File Converter
+      # ------------------------------------------------------------
       - name: Build File Converter
-        run: >
-          msbuild Application\FileConverter\FileConverter.csproj
-          /p:Configuration=Release
-          /p:Platform=x64
-          /p:RestorePackagesConfig=true
+        run: |
+          msbuild Application\FileConverter\FileConverter.csproj `
+            /p:Configuration=Release `
+            /p:Platform=x64 `
+            /p:RestorePackagesConfig=true
 
+      # ------------------------------------------------------------
+      # Copy FFmpeg into application output
+      # ------------------------------------------------------------
       - name: Copy FFmpeg to application output
         shell: pwsh
         run: |
-          $source = "Middleware\ffmpeg\ffmpeg.exe"
-          $outputDir = "Application\FileConverter\bin\x64\Release"
-          $destination = "$outputDir\ffmpeg.exe"
+          $output = "Application\FileConverter\bin\x64\Release"
 
-          if (-not (Test-Path $source)) {
-            throw "Source FFmpeg was not found: $source"
+          if (-not (Test-Path "$output\FileConverter.exe")) {
+              throw "FileConverter.exe was not found in the application output."
           }
 
-          if (-not (Test-Path $outputDir)) {
-            throw "Application output directory was not found: $outputDir"
+          if (-not (Test-Path "Middleware\ffmpeg\ffmpeg.exe")) {
+              throw "FFmpeg was not found."
           }
 
-          Copy-Item $source $destination -Force
+          Copy-Item `
+            "Middleware\ffmpeg\ffmpeg.exe" `
+            "$output\ffmpeg.exe" `
+            -Force
 
-          if (-not (Test-Path $destination)) {
-            throw "FFmpeg could not be copied to the application output directory."
+          & "$output\ffmpeg.exe" -version
+
+      # ------------------------------------------------------------
+      # Ghostscript 10.02.1
+      #
+      # File Converter's installer expects:
+      #   gsdll64.dll
+      #   gswin64c.exe
+      #
+      # We install Ghostscript temporarily on the runner, then copy
+      # only those two files into the File Converter output directory.
+      # ------------------------------------------------------------
+      - name: Download Ghostscript 10.02.1
+        shell: pwsh
+        run: |
+          $url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10021/gs10021w64.exe"
+          $installer = "$env:RUNNER_TEMP\gs10021w64.exe"
+          $gsRoot = "$env:RUNNER_TEMP\Ghostscript"
+
+          Invoke-WebRequest -Uri $url -OutFile $installer
+
+          if (Test-Path $gsRoot) {
+              Remove-Item $gsRoot -Recurse -Force
           }
 
-          Write-Host "FFmpeg successfully copied to:"
-          Write-Host $destination
+          New-Item -ItemType Directory -Force -Path $gsRoot | Out-Null
 
-          & $destination -version
+          # NSIS installer:
+          # /S = silent installation
+          # /D= = installation directory (must be last)
+          $process = Start-Process `
+            -FilePath $installer `
+            -ArgumentList @("/S", "/D=$gsRoot") `
+            -Wait `
+            -PassThru
 
+          if ($process.ExitCode -ne 0) {
+              throw "Ghostscript installer failed with exit code $($process.ExitCode)."
+          }
+
+          $gsExe = Get-ChildItem `
+            -Path $gsRoot `
+            -Filter "gswin64c.exe" `
+            -Recurse |
+            Select-Object -First 1
+
+          $gsDll = Get-ChildItem `
+            -Path $gsRoot `
+            -Filter "gsdll64.dll" `
+            -Recurse |
+            Select-Object -First 1
+
+          if (-not $gsExe) {
+              throw "gswin64c.exe was not found after installing Ghostscript."
+          }
+
+          if (-not $gsDll) {
+              throw "gsdll64.dll was not found after installing Ghostscript."
+          }
+
+          $output = "Application\FileConverter\bin\x64\Release"
+
+          Copy-Item $gsExe.FullName `
+            "$output\gswin64c.exe" `
+            -Force
+
+          Copy-Item $gsDll.FullName `
+            "$output\gsdll64.dll" `
+            -Force
+
+          Write-Host "Ghostscript executable:"
+          & "$output\gswin64c.exe" --version
+
+          Write-Host "Ghostscript files copied successfully."
+
+      # ------------------------------------------------------------
+      # Verify all middleware required by the installer
+      # ------------------------------------------------------------
+      - name: Verify application middleware
+        shell: pwsh
+        run: |
+          $output = "Application\FileConverter\bin\x64\Release"
+
+          $required = @(
+              "FileConverter.exe",
+              "ffmpeg.exe",
+              "gsdll64.dll",
+              "gswin64c.exe"
+          )
+
+          foreach ($file in $required) {
+              $path = Join-Path $output $file
+
+              if (-not (Test-Path $path)) {
+                  throw "Required file is missing: $path"
+              }
+
+              Write-Host "Found: $file"
+          }
+
+      # ------------------------------------------------------------
+      # Build installer
+      # ------------------------------------------------------------
       - name: Build installer
-        run: >
-          msbuild Installer\Installer.wixproj
-          /p:Configuration=Release
-          /p:Platform=x64
+        run: |
+          msbuild Installer\Installer.wixproj `
+            /p:Configuration=Release `
+            /p:Platform=x64
 
+      # ------------------------------------------------------------
+      # Verify MSI
+      # ------------------------------------------------------------
       - name: Verify installer
         shell: pwsh
         run: |
-          $msi = Get-ChildItem "Installer\bin\x64\Release\*.msi" |
-                 Select-Object -First 1
+          $msi = Get-ChildItem `
+            -Path "Installer\bin\x64\Release" `
+            -Filter "*.msi" `
+            -Recurse |
+            Select-Object -First 1
 
           if (-not $msi) {
-            throw "MSI installer was not created."
+              throw "Installer MSI was not produced."
           }
 
-          Write-Host "Installer created successfully:"
+          Write-Host "Installer created:"
           Write-Host $msi.FullName
-          Write-Host "Size: $($msi.Length) bytes"
+          Write-Host "Size: $([math]::Round($msi.Length / 1MB, 2)) MB"
 
+      # ------------------------------------------------------------
+      # Upload MSI
+      # ------------------------------------------------------------
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
