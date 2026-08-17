@@ -24,7 +24,32 @@ jobs:
           $archive = "$env:RUNNER_TEMP\ffmpeg.7z"
           $extract = "$env:RUNNER_TEMP\ffmpeg"
 
-          Invoke-WebRequest -Uri $url -OutFile $archive
+          Write-Host "Downloading FFmpeg 9.0 full..."
+
+          curl.exe `
+            -L `
+            --fail `
+            --retry 3 `
+            --retry-delay 5 `
+            --connect-timeout 30 `
+            --max-time 600 `
+            -o $archive `
+            $url
+
+          if ($LASTEXITCODE -ne 0) {
+              throw "FFmpeg download failed with exit code $LASTEXITCODE."
+          }
+
+          if (-not (Test-Path $archive)) {
+              throw "FFmpeg archive was not downloaded."
+          }
+
+          $size = (Get-Item $archive).Length
+          Write-Host "FFmpeg archive size: $([math]::Round($size / 1MB, 2)) MB"
+
+          if ($size -lt 1MB) {
+              throw "Downloaded FFmpeg archive appears to be invalid."
+          }
 
           if (Test-Path $extract) {
               Remove-Item $extract -Recurse -Force
@@ -33,6 +58,10 @@ jobs:
           New-Item -ItemType Directory -Force -Path $extract | Out-Null
 
           7z x $archive "-o$extract" -y
+
+          if ($LASTEXITCODE -ne 0) {
+              throw "FFmpeg archive extraction failed."
+          }
 
           $ffmpeg = Get-ChildItem `
             -Path $extract `
@@ -44,14 +73,21 @@ jobs:
               throw "ffmpeg.exe was not found in the downloaded archive."
           }
 
-          New-Item -ItemType Directory -Force -Path "Middleware\ffmpeg" | Out-Null
+          New-Item `
+            -ItemType Directory `
+            -Force `
+            -Path "Middleware\ffmpeg" |
+            Out-Null
 
           Copy-Item `
             $ffmpeg.FullName `
             "Middleware\ffmpeg\ffmpeg.exe" `
             -Force
 
-          Write-Host "FFmpeg found at: $($ffmpeg.FullName)"
+          Write-Host "FFmpeg found at:"
+          Write-Host $ffmpeg.FullName
+
+          Write-Host "FFmpeg version:"
           & "Middleware\ffmpeg\ffmpeg.exe" -version
 
       # ------------------------------------------------------------
@@ -91,56 +127,89 @@ jobs:
             "$output\ffmpeg.exe" `
             -Force
 
-          Write-Host "FFmpeg copied to application output."
+          Write-Host "FFmpeg copied successfully."
 
           & "$output\ffmpeg.exe" -version
 
       # ------------------------------------------------------------
       # Ghostscript 10.02.1
+      #
+      # Download the official Artifex Windows x64 installer and
+      # extract it directly. Ghostscript does NOT need to be
+      # installed on the GitHub runner.
       # ------------------------------------------------------------
       - name: Download Ghostscript 10.02.1
         shell: pwsh
         run: |
           $url = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10021/gs10021w64.exe"
           $installer = "$env:RUNNER_TEMP\gs10021w64.exe"
-          $gsRoot = "$env:RUNNER_TEMP\Ghostscript"
+          $extract = "$env:RUNNER_TEMP\Ghostscript"
 
-          Invoke-WebRequest -Uri $url -OutFile $installer
+          Write-Host "Downloading Ghostscript 10.02.1..."
 
-          if (Test-Path $gsRoot) {
-              Remove-Item $gsRoot -Recurse -Force
+          curl.exe `
+            -L `
+            --fail `
+            --retry 3 `
+            --retry-delay 5 `
+            --connect-timeout 30 `
+            --max-time 600 `
+            -o $installer `
+            $url
+
+          if ($LASTEXITCODE -ne 0) {
+              throw "Ghostscript download failed with exit code $LASTEXITCODE."
           }
 
-          New-Item -ItemType Directory -Force -Path $gsRoot | Out-Null
-
-          $process = Start-Process `
-            -FilePath $installer `
-            -ArgumentList @("/S", "/D=$gsRoot") `
-            -Wait `
-            -PassThru
-
-          if ($process.ExitCode -ne 0) {
-              throw "Ghostscript installer failed with exit code $($process.ExitCode)."
+          if (-not (Test-Path $installer)) {
+              throw "Ghostscript installer was not downloaded."
           }
 
+          $size = (Get-Item $installer).Length
+
+          Write-Host "Ghostscript installer size: $([math]::Round($size / 1MB, 2)) MB"
+
+          if ($size -lt 1MB) {
+              throw "Downloaded Ghostscript installer appears to be invalid."
+          }
+
+          if (Test-Path $extract) {
+              Remove-Item $extract -Recurse -Force
+          }
+
+          New-Item `
+            -ItemType Directory `
+            -Force `
+            -Path $extract |
+            Out-Null
+
+          Write-Host "Extracting Ghostscript installer..."
+
+          7z x $installer "-o$extract" -y
+
+          if ($LASTEXITCODE -ne 0) {
+              throw "Ghostscript installer extraction failed."
+          }
+
+          # Find the two files required by File Converter's installer.
           $gsExe = Get-ChildItem `
-            -Path $gsRoot `
+            -Path $extract `
             -Filter "gswin64c.exe" `
             -Recurse |
             Select-Object -First 1
 
           $gsDll = Get-ChildItem `
-            -Path $gsRoot `
+            -Path $extract `
             -Filter "gsdll64.dll" `
             -Recurse |
             Select-Object -First 1
 
           if (-not $gsExe) {
-              throw "gswin64c.exe was not found after installing Ghostscript."
+              throw "gswin64c.exe was not found in the Ghostscript package."
           }
 
           if (-not $gsDll) {
-              throw "gsdll64.dll was not found after installing Ghostscript."
+              throw "gsdll64.dll was not found in the Ghostscript package."
           }
 
           $output = "Application\FileConverter\bin\x64\Release"
@@ -156,12 +225,13 @@ jobs:
             -Force
 
           Write-Host "Ghostscript executable:"
-          & "$output\gswin64c.exe" --version
+          Write-Host $gsExe.FullName
 
-          Write-Host "Ghostscript files copied successfully."
+          Write-Host "Ghostscript DLL:"
+          Write-Host $gsDll.FullName
 
       # ------------------------------------------------------------
-      # Verify application middleware
+      # Verify all middleware required by the installer
       # ------------------------------------------------------------
       - name: Verify application middleware
         shell: pwsh
@@ -190,6 +260,9 @@ jobs:
 
               Write-Host "Found: $file ($size bytes)"
           }
+
+          Write-Host ""
+          Write-Host "All required middleware files are present."
 
       # ------------------------------------------------------------
       # Build installer
