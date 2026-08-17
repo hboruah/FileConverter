@@ -1,4 +1,4 @@
-name: Build File Converter
+name: Build File Converter 2.2.1
 
 on:
   workflow_dispatch:
@@ -14,14 +14,47 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
+      - name: Download FFmpeg 9.0 full
+        shell: pwsh
+        run: |
+          $url = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full.zip"
+          $zip = "$env:RUNNER_TEMP\ffmpeg.zip"
+          $extract = "$env:RUNNER_TEMP\ffmpeg"
+
+          Invoke-WebRequest -Uri $url -OutFile $zip
+          Expand-Archive -Path $zip -DestinationPath $extract -Force
+
+          $ffmpeg = Get-ChildItem -Path $extract -Filter "ffmpeg.exe" -Recurse |
+                    Select-Object -First 1
+
+          if (-not $ffmpeg) {
+            throw "ffmpeg.exe was not found in the downloaded archive."
+          }
+
+          New-Item -ItemType Directory -Force -Path "Middleware\ffmpeg" | Out-Null
+          Copy-Item $ffmpeg.FullName "Middleware\ffmpeg\ffmpeg.exe" -Force
+
+          & "Middleware\ffmpeg\ffmpeg.exe" -version
+
       - name: Restore NuGet packages
         run: nuget restore FileConverter.sln
 
       - name: Build File Converter
-        run: msbuild Application\FileConverter\FileConverter.csproj /p:Configuration=Release /p:Platform=x64 /p:RestorePackagesConfig=true
+        run: >
+          msbuild Application\FileConverter\FileConverter.csproj
+          /p:Configuration=Release
+          /p:Platform=x64
+          /p:RestorePackagesConfig=true
 
-      - name: Upload File Converter
+      - name: Build installer
+        run: >
+          msbuild Installer\Installer.wixproj
+          /p:Configuration=Release
+          /p:Platform=x64
+
+      - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
-          name: FileConverter-AVIF-Patched
-          path: Application\FileConverter\bin\x64\Release\
+          name: FileConverter-2.2.1-x64
+          path: Installer\bin\x64\Release\*.msi
+          if-no-files-found: error
