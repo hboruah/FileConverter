@@ -100,7 +100,7 @@ namespace FileConverter.ConversionJobs
             this.UserState = Properties.Resources.ConversionStateConversion;
 
             Debug.Log("Convert word document to pdf.");
-            this.document.SaveAs2(this.intermediateFilePath, Word.Enums.WdSaveFormat.wdFormatPDF);
+            this.document.SaveAs(this.intermediateFilePath, Word.Enums.WdSaveFormat.wdFormatPDF);
 
             Debug.Log($"Close word document '{this.InputFilePath}'.");
             this.document.Close(Word.Enums.WdSaveOptions.wdDoNotSaveChanges);
@@ -152,6 +152,10 @@ namespace FileConverter.ConversionJobs
             {
                 Visible = false
             };
+
+            // Suppress modal dialogs (e.g. format-compatibility prompts) so the
+            // conversion does not block waiting for user input when exporting to PDF.
+            this.application.DisplayAlerts = Word.Enums.WdAlertLevel.wdAlertsNone;
         }
 
         protected override void ReleaseOfficeApplicationInstanceIfNeeded()
