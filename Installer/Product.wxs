@@ -1,4 +1,4 @@
-﻿<!-- Upgrade documentation: http://wixtoolset.org/documentation/manual/v3/howtos/updates/major_upgrade.html -->
+<!-- Upgrade documentation: http://wixtoolset.org/documentation/manual/v3/howtos/updates/major_upgrade.html -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
     <Package Name="File Converter" Language="1033" Version="2.2.1" Manufacturer="Adrien Allard" UpgradeCode="e3ca717b-a897-418a-bbef-5c7e35c76e4b" InstallerVersion="500">
         <Icon Id="icon.ico" SourceFile="..\Resources\Icons\ApplicationIcon.ico" />
@@ -150,6 +150,34 @@
                 <File Id="WpfAnimatedGif.dll" KeyPath="yes" Source="$(var.FileConverter.TargetDir)WpfAnimatedGif.dll" Checksum="yes" />
             </Component>
             
+            <!-- NetOffice runtime assemblies -->
+            <Component Guid="{95E9283D-9C82-4D79-AC0C-BA90176F7A44}">
+                <File Id="NetOffice.dll" Source="$(var.FileConverter.TargetDir)NetOffice.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{2FD0330A-94F0-418A-BF4C-68E6D6E3CEFD}">
+                <File Id="NetOffice.OfficeApi.dll" Source="$(var.FileConverter.TargetDir)NetOffice.OfficeApi.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{E55DB0A3-7C09-45AF-961B-E9DFD85C7D56}">
+                <File Id="NetOffice.OfficeApi.Enums.dll" Source="$(var.FileConverter.TargetDir)NetOffice.OfficeApi.Enums.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{0080CC8E-590A-452F-BA45-5DEBA77A8B2B}">
+                <File Id="NetOffice.WordApi.dll" Source="$(var.FileConverter.TargetDir)NetOffice.WordApi.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{0B06759D-FFBE-4FD8-A289-B9AF27BFD859}">
+                <File Id="NetOffice.WordApi.Enums.dll" Source="$(var.FileConverter.TargetDir)NetOffice.WordApi.Enums.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{3103167B-BF76-492A-8FE3-45BC488EE007}">
+                <File Id="NetOffice.PowerPointApi.dll" Source="$(var.FileConverter.TargetDir)NetOffice.PowerPointApi.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{B40E03F6-441E-4FEC-8D8C-AE618926DFD4}">
+                <File Id="NetOffice.PowerPointApi.Enums.dll" Source="$(var.FileConverter.TargetDir)NetOffice.PowerPointApi.Enums.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{8C0E9368-9591-482A-9DFD-452560BD43B4}">
+                <File Id="NetOffice.ExcelApi.dll" Source="$(var.FileConverter.TargetDir)NetOffice.ExcelApi.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
+            <Component Guid="{1BAAF9C9-5D80-41C8-8B62-893C76516585}">
+                <File Id="NetOffice.ExcelApi.Enums.dll" Source="$(var.FileConverter.TargetDir)NetOffice.ExcelApi.Enums.dll" KeyPath="yes" Checksum="yes" />
+            </Component>
             <!-- Configuration and documentation -->
             <Component Guid="{AD58807A-2AE2-48BE-AB55-9BDE9BBE37F3}">
                 <File Id="Settings.default.xml" Source="$(var.FileConverter.ProjectDir)\Settings.default.xml" KeyPath="yes" />
