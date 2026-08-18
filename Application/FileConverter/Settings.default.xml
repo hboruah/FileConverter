@@ -292,7 +292,7 @@
         <InputTypes>wav</InputTypes>
         <InputTypes>wma</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
-        <Settings Key="AudioBitrate" Value="160" />
+        <Settings Key="AudioBitrate" Value="256" />
         <Settings Key="AudioChannelCount" Value="0" />
         <Settings Key="EnableFFMPEGCustomCommand" Value="False" />
         <Settings Key="FFMPEGCustomCommand" Value="" />
@@ -377,7 +377,7 @@
         <InputTypes>opus</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="AudioEncodingMode" Value="Mp3VBR" />
-        <Settings Key="AudioBitrate" Value="190" />
+        <Settings Key="AudioBitrate" Value="225" />
         <Settings Key="AudioChannelCount" Value="0" />
         <Settings Key="EnableFFMPEGCustomCommand" Value="False" />
         <Settings Key="FFMPEGCustomCommand" Value="" />
@@ -413,7 +413,7 @@
         <InputTypes>wav</InputTypes>
         <InputTypes>wma</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
-        <Settings Key="AudioBitrate" Value="128" />
+        <Settings Key="AudioBitrate" Value="256" />
         <Settings Key="AudioChannelCount" Value="0" />
         <Settings Key="EnableFFMPEGCustomCommand" Value="False" />
         <Settings Key="FFMPEGCustomCommand" Value="" />
@@ -593,7 +593,7 @@
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
-        <Settings Key="ImageQuality" Value="40" />
+        <Settings Key="ImageQuality" Value="85" />
         <Settings Key="ImageScale" Value="1" />
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
@@ -624,7 +624,7 @@
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
-        <Settings Key="ImageQuality" Value="50" />
+        <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="1" />
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
@@ -655,7 +655,7 @@
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
-        <Settings Key="ImageQuality" Value="40" />
+        <Settings Key="ImageQuality" Value="90" />
         <Settings Key="ImageScale" Value="1" />
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
