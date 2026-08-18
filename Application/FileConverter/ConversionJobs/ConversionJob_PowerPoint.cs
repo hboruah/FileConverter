@@ -145,6 +145,10 @@ namespace FileConverter.ConversionJobs
             // Initialize PowerPoint application.
             Debug.Log("Instantiate PowerPoint application via interop.");
             this.application = new PowerPoint.Application();
+
+            // Suppress modal dialogs (e.g. format-compatibility prompts) so the
+            // conversion does not block waiting for user input when exporting to PDF.
+            this.application.DisplayAlerts = PowerPoint.Enums.PpAlertLevel.ppAlertsNone;
         }
 
         protected override void ReleaseOfficeApplicationInstanceIfNeeded()
