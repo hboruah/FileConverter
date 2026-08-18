@@ -529,8 +529,6 @@
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="To Png (paged)" OutputType="Png" IsDefaultSettings="true">
@@ -550,8 +548,6 @@
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f) (n:i) of (n:c)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="To Webp" OutputType="Webp" IsDefaultSettings="true">
@@ -584,7 +580,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="To Avif" OutputType="Avif" IsDefaultSettings="true">
@@ -617,7 +613,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="To Jpg" OutputType="Jpg" IsDefaultSettings="true">
@@ -650,7 +646,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="To Ico" OutputType="Ico" IsDefaultSettings="true">
@@ -713,7 +709,7 @@
         <InputTypes>webp</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 75%/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
@@ -886,8 +882,6 @@
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f)-small</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 75%/To Webp" OutputType="Webp" IsDefaultSettings="true">
@@ -920,7 +914,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 75%/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
@@ -953,7 +947,40 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="Scale 75%/To Avif" OutputType="Avif" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="0.75" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 50%/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
@@ -1126,8 +1153,6 @@
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f)-small</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 50%/To Webp" OutputType="Webp" IsDefaultSettings="true">
@@ -1160,7 +1185,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 50%/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
@@ -1193,7 +1218,40 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="Scale 50%/To Avif" OutputType="Avif" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="0.5" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 25%/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
@@ -1366,8 +1424,6 @@
         <Settings Key="ImageRotation" Value="0" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f)-small</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 25%/To Webp" OutputType="Webp" IsDefaultSettings="true">
@@ -1400,7 +1456,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 25%/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
@@ -1433,7 +1489,40 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="Scale 25%/To Avif" OutputType="Avif" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="0.25" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 720p/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
@@ -1919,8 +2008,6 @@
         <Settings Key="ImageRotation" Value="90" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate left/To Webp" OutputType="Webp" IsDefaultSettings="true">
@@ -1953,7 +2040,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate left/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
@@ -1986,7 +2073,40 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="Rotate left/To Avif" OutputType="Avif" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="1" />
+        <Settings Key="ImageRotation" Value="90" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate right/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
@@ -2188,8 +2308,6 @@
         <Settings Key="ImageRotation" Value="270" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
-        <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate right/To Webp" OutputType="Webp" IsDefaultSettings="true">
@@ -2222,7 +2340,7 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Rotate right/To Jpg" OutputType="Jpg" IsDefaultSettings="true">
@@ -2255,7 +2373,40 @@
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
         <Settings Key="ImageMaximumSize" Value="0" />
         <Settings Key="ImageDpi" Value="300" />
-        <Settings Key="ImageUseOriginalDpi" Value="False" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="Rotate right/To Avif" OutputType="Avif" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="1" />
+        <Settings Key="ImageRotation" Value="270" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Tempo - Pitch/To Mp3 (25% slower)" OutputType="Mp3" IsDefaultSettings="true">
