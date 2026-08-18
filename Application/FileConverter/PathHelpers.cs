@@ -99,7 +99,7 @@ namespace FileConverter
         {
             string baseExtension = System.IO.Path.GetExtension(path);
             string basePath = path.Substring(0, path.Length - baseExtension.Length);
-            int index = 2;
+            int index = 1;
             while (System.IO.File.Exists(path) ||
                 (blacklist != null && System.Array.Exists(blacklist, match => match == path)))
             {
@@ -130,7 +130,7 @@ namespace FileConverter
                     }
                     catch (Exception)
                     {
-                        Debug.Log($"Can't create directories for path {filePath}");
+                        Debug.Log($"Can't create directories for filePath {filePath}");
                         return false;
                     }
                 }
