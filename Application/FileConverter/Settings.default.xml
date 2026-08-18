@@ -550,6 +550,42 @@
         <Settings Key="ImageMaximumSize" Value="0" />
         <OutputFileNameTemplate>(p)(f) (n:i) of (n:c)</OutputFileNameTemplate>
     </ConversionPreset>
+    <ConversionPreset Name="To Jpg (paged)" OutputType="Jpg" IsDefaultSettings="true">
+        <InputTypes>pdf</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="90" />
+        <Settings Key="ImageScale" Value="1" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f) (n:i) of (n:c)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="To Webp (paged)" OutputType="Webp" IsDefaultSettings="true">
+        <InputTypes>pdf</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="1" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f) (n:i) of (n:c)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="To Avif (paged)" OutputType="Avif" IsDefaultSettings="true">
+        <InputTypes>pdf</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="1" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f) (n:i) of (n:c)</OutputFileNameTemplate>
+    </ConversionPreset>
     <ConversionPreset Name="To Webp" OutputType="Webp" IsDefaultSettings="true">
         <InputTypes>xcf</InputTypes>
         <InputTypes>arw</InputTypes>
@@ -2557,6 +2593,6 @@
         <Settings Key="FFMPEGCustomCommand" Value="-filter:a &quot;rubberband=pitch=1.059463094352953&quot;" />
         <OutputFileNameTemplate>(p)(f) (+1st)</OutputFileNameTemplate>
     </ConversionPreset>
-    <CheckUpgradeAtStartup>true</CheckUpgradeAtStartup>
+    <CheckUpgradeAtStartup>false</CheckUpgradeAtStartup>
     <CopyFilesInClipboardAfterConversion>false</CopyFilesInClipboardAfterConversion>
 </Settings>
