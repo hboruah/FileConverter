@@ -1,4 +1,4 @@
-name: Build File Converter 2.2.1
+name: Build File Converter 2.3.0
 
 on:
   workflow_dispatch:
