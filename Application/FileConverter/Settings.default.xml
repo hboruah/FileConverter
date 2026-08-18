@@ -733,6 +733,34 @@
         <Settings Key="ImageUseOriginalDpi" Value="True" />
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
+    <ConversionPreset Name="To Pdf (multiple images)" OutputType="Pdf" IsDefaultSettings="true">
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputTypes>gif</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
     <ConversionPreset Name="Scale 75%/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
         <InputTypes>gif</InputTypes>
         <InputTypes>3gp</InputTypes>
