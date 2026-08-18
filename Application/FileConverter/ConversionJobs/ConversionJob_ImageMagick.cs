@@ -3,6 +3,7 @@
 namespace FileConverter.ConversionJobs
 {
     using System;
+    using System.Collections.Generic;
 
     using FileConverter.Diagnostics;
     using ImageMagick;
@@ -294,6 +295,164 @@ namespace FileConverter.ConversionJobs
 
             float alreadyCompletedPages = this.CurrentOutputFilePathIndex / (float)this.pageCount;
             this.Progress = alreadyCompletedPages + ((float)eventArgs.Progress.ToDouble() / (100f * this.pageCount));
+        }
+    }
+
+    /// <summary>
+    /// Converts an ordered set of image files into a single multi-page PDF.
+    /// The preset is exposed through the settings file as "To Pdf (multiple images)".
+    /// </summary>
+    public class ConversionJob_MultiImagePdf : ConversionJob
+    {
+        private readonly List<string> inputFilePaths = new List<string>();
+        private int pageCount;
+        private int currentPageIndex;
+
+        public ConversionJob_MultiImagePdf(ConversionPreset conversionPreset, string inputFilePath) : base(conversionPreset, inputFilePath)
+        {
+            this.inputFilePaths.Add(inputFilePath);
+        }
+
+        public void AddInputFilePath(string inputFilePath)
+        {
+            if (string.IsNullOrEmpty(inputFilePath) || this.inputFilePaths.Contains(inputFilePath))
+            {
+                return;
+            }
+
+            this.inputFilePaths.Add(inputFilePath);
+        }
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            if (this.ConversionPreset == null || this.ConversionPreset.OutputType != OutputType.Pdf)
+            {
+                throw new Exception("The multi-image PDF conversion preset must output PDF.");
+            }
+
+            string applicationDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            MagickNET.SetGhostscriptDirectory(applicationDirectory);
+        }
+
+        protected override void Convert()
+        {
+            this.pageCount = this.inputFilePaths.Count;
+            this.currentPageIndex = 0;
+            this.UserState = Properties.Resources.ConversionStateReadDocument;
+
+            using (MagickImageCollection images = new MagickImageCollection())
+            {
+                foreach (string inputFilePath in this.inputFilePaths)
+                {
+                    if (this.CancelIsRequested)
+                    {
+                        this.ConversionFailed(Properties.Resources.ErrorCanceled);
+                        return;
+                    }
+
+                    Debug.Log($"Load image {inputFilePath} for multi-page PDF.");
+
+                    MagickReadSettings readSettings = new MagickReadSettings();
+                    string inputExtension = System.IO.Path.GetExtension(inputFilePath).ToLowerInvariant();
+                    switch (inputExtension)
+                    {
+                        case ".avif":
+                            readSettings.Format = MagickFormat.Avif;
+                            break;
+
+                        case ".cr2":
+                            readSettings.Format = MagickFormat.Cr2;
+                            break;
+
+                        case ".dng":
+                            readSettings.Format = MagickFormat.Dng;
+                            break;
+
+                        case ".gif":
+                            readSettings.FrameIndex = 0;
+                            break;
+                    }
+
+                    using (MagickImage image = new MagickImage(inputFilePath, readSettings))
+                    {
+                        image.Progress += this.Image_Progress;
+
+                        if (this.ConversionPreset.IsRelevantSetting(ConversionPreset.ConversionSettingKeys.ImageScale))
+                        {
+                            float scaleFactor = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageScale);
+                            if (Math.Abs(scaleFactor - 1f) >= 0.005f)
+                            {
+                                image.Scale(new Percentage(scaleFactor * 100f));
+                            }
+                        }
+
+                        if (this.ConversionPreset.IsRelevantSetting(ConversionPreset.ConversionSettingKeys.ImageRotation))
+                        {
+                            float rotateAngle = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageRotation);
+                            if (Math.Abs(rotateAngle) >= 0.05f)
+                            {
+                                image.Rotate(rotateAngle);
+                            }
+                        }
+
+                        if (this.ConversionPreset.IsRelevantSetting(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2) &&
+                            this.ConversionPreset.GetSettingsValue<bool>(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2))
+                        {
+                            uint referenceSize = Math.Min(image.Width, image.Height);
+                            uint size = 2;
+                            while (size * 2 <= referenceSize)
+                            {
+                                size *= 2;
+                            }
+
+                            image.Scale(size, size);
+                        }
+
+                        if (this.ConversionPreset.IsRelevantSetting(ConversionPreset.ConversionSettingKeys.ImageMaximumSize))
+                        {
+                            uint maximumSize = this.ConversionPreset.GetSettingsValue<uint>(ConversionPreset.ConversionSettingKeys.ImageMaximumSize);
+                            if (maximumSize > 0 && (image.Width > maximumSize || image.Height > maximumSize))
+                            {
+                                image.Resize(new MagickGeometry(maximumSize, maximumSize) { IgnoreAspectRatio = false });
+                            }
+                        }
+
+                        if (!this.ConversionPreset.GetSettingsValue<bool>(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi))
+                        {
+                            float dpi = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageDpi);
+                            if (dpi > 0)
+                            {
+                                image.Density = new Density(dpi);
+                            }
+                        }
+
+                        image.Format = MagickFormat.Pdf;
+                        images.Add(new MagickImage(image));
+                        image.Progress -= this.Image_Progress;
+                    }
+
+                    this.currentPageIndex++;
+                    this.Progress = this.currentPageIndex / (float)this.pageCount;
+                }
+
+                this.UserState = Properties.Resources.ConversionStateConversion;
+                Debug.Log($"Write {images.Count} images as a single PDF: {this.OutputFilePath}.");
+                images.Write(this.OutputFilePath, MagickFormat.Pdf);
+            }
+        }
+
+        private void Image_Progress(object sender, ProgressEventArgs eventArgs)
+        {
+            if (this.CancelIsRequested)
+            {
+                eventArgs.Cancel = true;
+                return;
+            }
+
+            float completedPages = this.currentPageIndex / (float)Math.Max(1, this.pageCount);
+            this.Progress = Math.Min(1f, completedPages + ((float)eventArgs.Progress.ToDouble() / (100f * Math.Max(1, this.pageCount))));
         }
     }
 }
