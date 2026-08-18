@@ -47,9 +47,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\ApplicationIcon.ico</ApplicationIcon>
-    <!-- Ensure all assemblies from PackageReference dependencies, including the
-         NetOffice Office API assemblies, are copied to the application output. -->
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
