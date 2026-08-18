@@ -1,4 +1,4 @@
-﻿// <copyright file="ConversionJob_PowerPoint.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
+// <copyright file="ConversionJob_PowerPoint.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
 
 namespace FileConverter.ConversionJobs
 {
@@ -96,7 +96,7 @@ namespace FileConverter.ConversionJobs
             this.UserState = Properties.Resources.ConversionStateConversion;
 
             Debug.Log("Convert PowerPoint document to pdf.");
-            this.document.ExportAsFixedFormat(this.intermediateFilePath, PowerPoint.Enums.PpFixedFormatType.ppFixedFormatTypePDF);
+            this.document.SaveAs(this.intermediateFilePath, PowerPoint.Enums.PpSaveAsFileType.ppSaveAsPDF);
 
             Debug.Log($"Close PowerPoint document '{this.InputFilePath}'.");
             this.document.Close();
