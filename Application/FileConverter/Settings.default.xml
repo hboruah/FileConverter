@@ -2449,7 +2449,7 @@
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
-        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="1" />
         <Settings Key="ImageRotation" Value="270" />
         <Settings Key="ImageClampSizePowerOf2" Value="False" />
