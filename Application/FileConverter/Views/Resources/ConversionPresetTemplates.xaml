@@ -544,8 +544,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" TickFrequency="25" Foreground="{DynamicResource MainDarkBrush}">
+                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=300, FallbackValue=300}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
                     <Slider.Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="IsEnabled" Value="True"/>
@@ -566,7 +566,7 @@
                     </Label.Content>
                 </Label>
                 <CheckBox x:Name="UseOriginalDpiCheckBox" Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
-                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=True, FallbackValue=True}"/>
             </Grid>
 
             <!--Scale-->
@@ -644,37 +644,6 @@
                               Content="{x:Static project:Resources.ClampToLowestPowerOfTwoSize}" 
                               IsChecked="{Binding Settings, ConverterParameter=ImageClampSizePowerOf2|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}" />
             </Grid>
-            <!--DPI-->
-            <Label Content="DPI" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="60"/>
-                </Grid.ColumnDefinitions>
-                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" TickFrequency="25" Foreground="{DynamicResource MainDarkBrush}">
-                    <Slider.Style>
-                        <Style TargetType="{x:Type Slider}">
-                            <Setter Property="IsEnabled" Value="True"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=UseOriginalDpiCheckBox}" Value="True">
-                                    <Setter Property="IsEnabled" Value="False"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Slider.Style>
-                </Slider>
-                <Label Grid.Column="1">
-                    <Label.Content>
-                        <MultiBinding Converter="{StaticResource FormatStringConverter}" Mode="OneWay">
-                            <MultiBinding.ConverterParameter>{0:0} dpi</MultiBinding.ConverterParameter>
-                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay"/>
-                        </MultiBinding>
-                    </Label.Content>
-                </Label>
-                <CheckBox x:Name="UseOriginalDpiCheckBox" Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
-                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
-            </Grid>
             <!--Rotate-->
             <Label Content="{x:Static project:Resources.Rotate}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
@@ -709,8 +678,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" TickFrequency="25" Foreground="{DynamicResource MainDarkBrush}">
+                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=300, FallbackValue=300}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
                     <Slider.Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="IsEnabled" Value="True"/>
@@ -731,7 +700,7 @@
                     </Label.Content>
                 </Label>
                 <CheckBox x:Name="UseOriginalDpiCheckBox" Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
-                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=True, FallbackValue=True}"/>
             </Grid>
         </Grid>
     </DataTemplate>
