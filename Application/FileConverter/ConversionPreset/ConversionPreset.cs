@@ -1,4 +1,4 @@
-﻿// <copyright file="ConversionPreset.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
+// <copyright file="ConversionPreset.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
 
 namespace FileConverter
 {
@@ -437,7 +437,7 @@ namespace FileConverter
 
                 case OutputType.Mp3:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.AudioEncodingMode, EncodingMode.Mp3VBR.ToString(), true);
-                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.AudioBitrate, "225");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.AudioBitrate, "245");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.AudioChannelCount, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.EnableFFMPEGCustomCommand, "False");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.FFMPEGCustomCommand, string.Empty);
@@ -506,6 +506,8 @@ namespace FileConverter
                 // Images
                 case OutputType.Avif:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "85");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -519,6 +521,8 @@ namespace FileConverter
                     break;
 
                 case OutputType.Png:
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -527,6 +531,8 @@ namespace FileConverter
 
                 case OutputType.Jpg:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "90");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -535,6 +541,8 @@ namespace FileConverter
 
                 case OutputType.Webp:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "85");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -546,6 +554,8 @@ namespace FileConverter
 
                 // Documents
                 case OutputType.Pdf:
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
                     break;
 
                 default:
@@ -606,6 +616,8 @@ namespace FileConverter
             public const string AudioBitrate = "AudioBitrate";
             public const string AudioChannelCount = "AudioChannelCount";
             public const string ImageQuality = "ImageQuality";
+            public const string ImageDpi = "ImageDpi";
+            public const string ImageUseOriginalDpi = "ImageUseOriginalDpi";
             public const string ImageScale = "ImageScale";
             public const string ImageRotation = "ImageRotation";
             public const string ImageClampSizePowerOf2 = "ImageClampSizePowerOf2";
