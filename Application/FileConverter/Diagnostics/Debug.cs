@@ -1,4 +1,4 @@
-﻿// <copyright file="Debug.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
+// <copyright file="Debug.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
 
 namespace FileConverter.Diagnostics
 {
@@ -20,30 +20,10 @@ namespace FileConverter.Diagnostics
 
         static Debug()
         {
-            Debug.mainThreadId = Thread.CurrentThread.ManagedThreadId;
-
-            string path = FileConverterExtension.PathHelpers.GetUserDataFolderPath;
-
-            // Delete old diagnostics folder (1 day).
-            DateTime expirationDate = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
-            string[] diagnosticsDirectories = Directory.GetDirectories(path, "Diagnostics-*");
-            for (int index = 0; index < diagnosticsDirectories.Length; index++)
-            {
-                string directory = diagnosticsDirectories[index];
-                DateTime creationTime = Directory.GetCreationTime(directory);
-                if (creationTime < expirationDate)
-                {
-                    Directory.Delete(directory, true);
-                }
-            }
-
-            string diagnosticsFolderName = $"Diagnostics-{DateTime.Now.Hour}h{DateTime.Now.Minute}m{DateTime.Now.Second}s";
-            
-            Debug.diagnosticsFolderPath = Path.Combine(path, diagnosticsFolderName);
-            Debug.diagnosticsFolderPath = PathHelpers.GenerateUniquePath(Debug.diagnosticsFolderPath);
-            Directory.CreateDirectory(Debug.diagnosticsFolderPath);
-
-            Debug.Log($"Diagnostics stored at path '{Debug.diagnosticsFolderPath}'");
+            Debug.mainThreadId = Thread.CurrentThread.ManagedThreadId;            
+            // File diagnostics are intentionally disabled in this build.
+            // Keep main-thread console logging available, but do not create
+            // Diagnostics-* directories or write diagnostic log files.
         }
 
         public static int FirstErrorCode
@@ -128,22 +108,8 @@ namespace FileConverter.Diagnostics
 
                 Console.ResetColor();
             }
-
-            lock (Debug.diagnosticsDataById)
-            {
-                if (!Debug.diagnosticsDataById.TryGetValue(threadId, out diagnosticsData))
-                {
-                    string threadName = Debug.threadCount > 0 ? $"{currentThread.Name} ({Debug.threadCount})" : "Application";
-                    diagnosticsData = new DiagnosticsData(threadName);
-                    diagnosticsData.Initialize(Debug.diagnosticsFolderPath, threadId);
-                    Debug.diagnosticsDataById.Add(threadId, diagnosticsData);
-                    Debug.threadCount++;
-
-                    StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs("Data"));
-                }
-            }
-
-            diagnosticsData.Log(log);
+            // File-backed diagnostics are disabled. Main-thread messages above
+            // still go to the console; background-thread messages are discarded.
         }
     }
 }
