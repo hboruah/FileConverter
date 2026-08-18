@@ -21,6 +21,7 @@
     <valueConverters:OutputTypeEnumToViewModel x:Key="OutputTypeEnumToViewModel"/>
     <valueConverters:ConversionSettingsRelevant x:Key="ConversionSettingsRelevant"/>
     <valueConverters:HardwareAccelerationModeToString x:Key="HardwareAccelerationModeToString"/>
+    <valueConverters:DpiSliderIndexConverter x:Key="DpiSliderIndexConverter"/>
 
     <generic:ValueConverterGroup x:Key="ConversionSettingsToEnum">
         <valueConverters:ConversionSettingsToString/>
@@ -36,6 +37,11 @@
         <valueConverters:ConversionSettingsToString/>
         <generic:EqualsConverter/>
         <generic:BoolInverterConverter/>
+    </generic:ValueConverterGroup>
+
+    <generic:ValueConverterGroup x:Key="ConversionSettingsToDpiSliderIndex">
+        <valueConverters:ConversionSettingsToString/>
+        <valueConverters:DpiSliderIndexConverter/>
     </generic:ValueConverterGroup>
 
     <generic:ValueConverterGroup x:Key="ConversionSettingsToValueType">
@@ -544,8 +550,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=300, FallbackValue=300}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" TickPlacement="BottomRight" IsMoveToPointEnabled="True" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
+                <Slider x:Name="DpiSlider" Grid.Column="0"
+                        Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToDpiSliderIndex}, Mode=TwoWay, TargetNullValue=6, FallbackValue=6}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True"
+                        Minimum="0" Maximum="8" SmallChange="1" LargeChange="1"
+                        TickPlacement="BottomRight" IsMoveToPointEnabled="True"
+                        Ticks="0 1 2 3 4 5 6 7 8" Foreground="{DynamicResource MainDarkBrush}">
                     <Slider.Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="IsEnabled" Value="True"/>
@@ -561,7 +571,7 @@
                     <Label.Content>
                         <MultiBinding Converter="{StaticResource FormatStringConverter}" Mode="OneWay">
                             <MultiBinding.ConverterParameter>{0:0} dpi</MultiBinding.ConverterParameter>
-                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay"/>
+                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay" Converter="{StaticResource DpiSliderIndexConverter}"/>
                         </MultiBinding>
                     </Label.Content>
                 </Label>
@@ -678,8 +688,12 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=300, FallbackValue=300}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" TickPlacement="BottomRight" IsMoveToPointEnabled="True" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
+                <Slider x:Name="DpiSlider" Grid.Column="0"
+                        Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToDpiSliderIndex}, Mode=TwoWay, TargetNullValue=6, FallbackValue=6}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True"
+                        Minimum="0" Maximum="8" SmallChange="1" LargeChange="1"
+                        TickPlacement="BottomRight" IsMoveToPointEnabled="True"
+                        Ticks="0 1 2 3 4 5 6 7 8" Foreground="{DynamicResource MainDarkBrush}">
                     <Slider.Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="IsEnabled" Value="True"/>
@@ -695,7 +709,7 @@
                     <Label.Content>
                         <MultiBinding Converter="{StaticResource FormatStringConverter}" Mode="OneWay">
                             <MultiBinding.ConverterParameter>{0:0} dpi</MultiBinding.ConverterParameter>
-                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay"/>
+                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay" Converter="{StaticResource DpiSliderIndexConverter}"/>
                         </MultiBinding>
                     </Label.Content>
                 </Label>
