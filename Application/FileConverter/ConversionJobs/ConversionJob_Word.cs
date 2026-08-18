@@ -1,4 +1,4 @@
-﻿// <copyright file="ConversionJob_Word.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
+// <copyright file="ConversionJob_Word.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
 
 namespace FileConverter.ConversionJobs
 {
@@ -100,18 +100,7 @@ namespace FileConverter.ConversionJobs
             this.UserState = Properties.Resources.ConversionStateConversion;
 
             Debug.Log("Convert word document to pdf.");
-            // this.document.ExportAsFixedFormat(this.intermediateFilePath, Word.WdExportFormat.wdExportFormatPDF);
-            this.document.ExportAsFixedFormat(this.intermediateFilePath, 
-                Word.Enums.WdExportFormat.wdExportFormatPDF, 
-                false, 
-                Word.Enums.WdExportOptimizeFor.wdExportOptimizeForPrint, 
-                Word.Enums.WdExportRange.wdExportAllDocument, 
-                1, 1, 
-                Word.Enums.WdExportItem.wdExportDocumentContent, 
-                true, 
-                true, 
-                Word.Enums.WdExportCreateBookmarks.wdExportCreateHeadingBookmarks, 
-                true);
+            this.document.SaveAs2(this.intermediateFilePath, Word.Enums.WdSaveFormat.wdFormatPDF);
 
             Debug.Log($"Close word document '{this.InputFilePath}'.");
             this.document.Close(Word.Enums.WdSaveOptions.wdDoNotSaveChanges);
