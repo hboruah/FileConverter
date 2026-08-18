@@ -1,4 +1,4 @@
-﻿// <copyright file="ConversionService.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
+// <copyright file="ConversionService.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
 
 namespace FileConverter.Services
 {
@@ -15,6 +15,8 @@ namespace FileConverter.Services
 
     public class ConversionService : ObservableObject, IConversionService
     {
+        private const string MultiImagePdfPresetName = "To Pdf (multiple images)";
+
         private readonly List<ConversionJob> conversionJobs = new List<ConversionJob>();
 
         private readonly int numberOfConversionThread = 1;
@@ -52,6 +54,42 @@ namespace FileConverter.Services
 
         public void RegisterConversionJob(ConversionJob conversionJob)
         {
+            if (conversionJob == null)
+            {
+                throw new ArgumentNullException(nameof(conversionJob));
+            }
+
+            // A preset named "To Pdf (multiple images)" is intentionally treated as a
+            // multi-input preset. The normal application startup still creates one job
+            // per selected file; here we collapse those jobs into a single PDF job while
+            // preserving the command-line/file-list order.
+            if (conversionJob.ConversionPreset != null &&
+                string.Equals(conversionJob.ConversionPreset.FullName, MultiImagePdfPresetName, StringComparison.OrdinalIgnoreCase) &&
+                conversionJob.ConversionPreset.OutputType == OutputType.Pdf)
+            {
+                string inputFilePath = conversionJob.InputFilePath;
+                string extension = System.IO.Path.GetExtension(inputFilePath).TrimStart('.').ToLowerInvariant();
+                string inputCategory = Helpers.GetExtensionCategory(extension);
+
+                if (inputCategory == Helpers.InputCategoryNames.Image || inputCategory == Helpers.InputCategoryNames.AnimatedImage)
+                {
+                    for (int index = 0; index < this.conversionJobs.Count; index++)
+                    {
+                        if (this.conversionJobs[index] is ConversionJob_MultiImagePdf multiImageJob &&
+                            string.Equals(multiImageJob.ConversionPreset?.FullName, MultiImagePdfPresetName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            multiImageJob.AddInputFilePath(inputFilePath);
+                            return;
+                        }
+                    }
+
+                    ConversionJob_MultiImagePdf newMultiImageJob = new ConversionJob_MultiImagePdf(conversionJob.ConversionPreset, inputFilePath);
+                    this.conversionJobs.Add(newMultiImageJob);
+                    this.OnPropertyChanged(nameof(this.ConversionJobs));
+                    return;
+                }
+            }
+
             this.conversionJobs.Add(conversionJob);
             this.OnPropertyChanged(nameof(this.ConversionJobs));
         }
