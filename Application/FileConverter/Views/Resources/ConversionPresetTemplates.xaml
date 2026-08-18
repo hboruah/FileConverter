@@ -32,6 +32,12 @@
         <generic:EqualsConverter/>
     </generic:ValueConverterGroup>
 
+    <generic:ValueConverterGroup x:Key="ConversionSettingsNotEquals">
+        <valueConverters:ConversionSettingsToString/>
+        <generic:EqualsConverter/>
+        <generic:BoolInverterConverter/>
+    </generic:ValueConverterGroup>
+
     <generic:ValueConverterGroup x:Key="ConversionSettingsToValueType">
         <valueConverters:ConversionSettingsToString/>
         <generic:StringToValueType/>
@@ -521,14 +527,41 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <!--Quality-->
             <Label Content="{x:Static project:Resources.Quality}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
             <Slider Grid.Row="0" Grid.Column="1" x:Name="QualitySlider" Value="{Binding Settings, ConverterParameter=ImageQuality|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=25}"
                         Margin="0,5,0,0" VerticalAlignment="Top" AutoToolTipPlacement="TopLeft" IsSnapToTickEnabled="True" IsSelectionRangeEnabled="True" SelectionStart="30" SelectionEnd="100" Minimum="0" Maximum="100" TickPlacement="BottomRight" SmallChange="5" LargeChange="15" TickFrequency="5" Foreground="{DynamicResource MainDarkBrush}" />
-            <!--Scale-->
-            <Label Content="{x:Static project:Resources.Scale}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
+            <!--DPI-->
+            <Label Content="DPI" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
             <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" TickFrequency="25" Foreground="{DynamicResource MainDarkBrush}"
+                        IsEnabled="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|False, Converter={StaticResource ConversionSettingsNotEquals}, Mode=OneWay, FallbackValue=True}"/>
+                <Label Grid.Column="1">
+                    <Label.Content>
+                        <MultiBinding Converter="{StaticResource FormatStringConverter}" Mode="OneWay">
+                            <MultiBinding.ConverterParameter>{0:0} dpi</MultiBinding.ConverterParameter>
+                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay"/>
+                        </MultiBinding>
+                    </Label.Content>
+                </Label>
+                <CheckBox Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
+            </Grid>
+
+            <!--Scale-->
+            <Label Content="{x:Static project:Resources.Scale}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
+            <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
@@ -551,8 +584,8 @@
                               IsChecked="{Binding Settings, ConverterParameter=ImageClampSizePowerOf2|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}" />
             </Grid>
             <!--Rotate-->
-            <Label Content="{x:Static project:Resources.Rotate}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="{x:Static project:Resources.Rotate}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right"/>
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                 <RadioButton Content="{x:Static project:Resources.ZeroDegreesRotationTitle}" ToolTip="{x:Static project:Resources.ZeroDegreesRotationTooltip}" Margin="0,7,7,7"
                                  IsChecked="{Binding Settings, ConverterParameter=ImageRotation|0, Converter={StaticResource ConversionSettingsEquals}, Mode=TwoWay}"/>
                 <RadioButton Content="{x:Static project:Resources.NinetyDegreesRotationTitle}" ToolTip="{x:Static project:Resources.NinetyDegreesRotationTooltip}" Margin="7"
@@ -572,6 +605,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -600,9 +634,30 @@
                               Content="{x:Static project:Resources.ClampToLowestPowerOfTwoSize}" 
                               IsChecked="{Binding Settings, ConverterParameter=ImageClampSizePowerOf2|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}" />
             </Grid>
+            <!--DPI-->
+            <Label Content="DPI" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" TickFrequency="25" Foreground="{DynamicResource MainDarkBrush}"
+                        IsEnabled="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|False, Converter={StaticResource ConversionSettingsNotEquals}, Mode=OneWay, FallbackValue=True}"/>
+                <Label Grid.Column="1">
+                    <Label.Content>
+                        <MultiBinding Converter="{StaticResource FormatStringConverter}" Mode="OneWay">
+                            <MultiBinding.ConverterParameter>{0:0} dpi</MultiBinding.ConverterParameter>
+                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay"/>
+                        </MultiBinding>
+                    </Label.Content>
+                </Label>
+                <CheckBox Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
+            </Grid>
             <!--Rotate-->
-            <Label Content="{x:Static project:Resources.Rotate}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"/>
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="{x:Static project:Resources.Rotate}" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                 <RadioButton Content="{x:Static project:Resources.ZeroDegreesRotationTitle}" ToolTip="{x:Static project:Resources.ZeroDegreesRotationTooltip}" Margin="0,7,7,7"
                                  IsChecked="{Binding Settings, ConverterParameter=ImageRotation|0, Converter={StaticResource ConversionSettingsEquals}, Mode=TwoWay}"/>
                 <RadioButton Content="{x:Static project:Resources.NinetyDegreesRotationTitle}" ToolTip="{x:Static project:Resources.NinetyDegreesRotationTooltip}" Margin="7"
@@ -612,6 +667,42 @@
                 <RadioButton Content="{x:Static project:Resources.TwoSeventyDegreesRotationTitle}" ToolTip="{x:Static project:Resources.TwoSeventyDegreesRotationTooltip}" Margin="7"
                                  IsChecked="{Binding Settings, ConverterParameter=ImageRotation|270, Converter={StaticResource ConversionSettingsEquals}, Mode=TwoWay}"/>
             </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PdfSettingsDataTemplate" DataType="{x:Type fileConverter:ConversionPreset}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="DPI" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"/>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" TickFrequency="25" Foreground="{DynamicResource MainDarkBrush}"
+                        IsEnabled="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|False, Converter={StaticResource ConversionSettingsNotEquals}, Mode=OneWay, FallbackValue=True}"/>
+                <Label Grid.Column="1">
+                    <Label.Content>
+                        <MultiBinding Converter="{StaticResource FormatStringConverter}" Mode="OneWay">
+                            <MultiBinding.ConverterParameter>{0:0} dpi</MultiBinding.ConverterParameter>
+                            <Binding ElementName="DpiSlider" Path="Value" Mode="OneWay"/>
+                        </MultiBinding>
+                    </Label.Content>
+                </Label>
+                <CheckBox Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
+            </Grid>
         </Grid>
     </DataTemplate>
 
@@ -650,6 +741,8 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding OutputType}" Value="Png">
                 <Setter Property="ContentTemplate" Value="{StaticResource PngSettingsDataTemplate}"/>
+            </DataTrigger>            <DataTrigger Binding="{Binding OutputType}" Value="Pdf">
+                <Setter Property="ContentTemplate" Value="{StaticResource PdfSettingsDataTemplate}"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding OutputType}" Value="Wav">
                 <Setter Property="ContentTemplate" Value="{StaticResource WavSettingsDataTemplate}"/>
