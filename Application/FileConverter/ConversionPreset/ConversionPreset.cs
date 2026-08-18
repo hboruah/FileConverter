@@ -507,7 +507,7 @@ namespace FileConverter
                 case OutputType.Avif:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "85");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
-                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "True");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -522,7 +522,7 @@ namespace FileConverter
 
                 case OutputType.Png:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
-                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "True");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -532,7 +532,7 @@ namespace FileConverter
                 case OutputType.Jpg:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "90");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
-                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "True");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -542,7 +542,7 @@ namespace FileConverter
                 case OutputType.Webp:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "85");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
-                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "True");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
@@ -555,7 +555,7 @@ namespace FileConverter
                 // Documents
                 case OutputType.Pdf:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
-                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "False");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "True");
                     break;
 
                 default:
