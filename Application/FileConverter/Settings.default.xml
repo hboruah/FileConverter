@@ -759,7 +759,7 @@
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageDpi" Value="300" />
         <Settings Key="ImageUseOriginalDpi" Value="True" />
-        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+        <OutputFileNameTemplate>(p)images</OutputFileNameTemplate>
     </ConversionPreset>
     <ConversionPreset Name="Scale 75%/To Mkv" OutputType="Mkv" IsDefaultSettings="true">
         <InputTypes>gif</InputTypes>
