@@ -545,7 +545,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=300, FallbackValue=300}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" TickPlacement="BottomRight" IsMoveToPointEnabled="True" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
                     <Slider.Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="IsEnabled" Value="True"/>
@@ -679,7 +679,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Slider x:Name="DpiSlider" Grid.Column="0" Value="{Binding Settings, ConverterParameter=ImageDpi|System.Double, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=300, FallbackValue=300}"
-                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" LargeChange="25" TickPlacement="BottomRight" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
+                        Margin="0,2,0,0" VerticalAlignment="Top" IsSnapToTickEnabled="True" Minimum="72" Maximum="600" SmallChange="1" TickPlacement="BottomRight" IsMoveToPointEnabled="True" Ticks="72 96 120 150 200 240 300 400 600" Foreground="{DynamicResource MainDarkBrush}">
                     <Slider.Style>
                         <Style TargetType="{x:Type Slider}">
                             <Setter Property="IsEnabled" Value="True"/>
