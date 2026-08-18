@@ -566,7 +566,7 @@
                     </Label.Content>
                 </Label>
                 <CheckBox x:Name="UseOriginalDpiCheckBox" Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
-                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=True, FallbackValue=True}"/>
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
             </Grid>
 
             <!--Scale-->
@@ -700,7 +700,7 @@
                     </Label.Content>
                 </Label>
                 <CheckBox x:Name="UseOriginalDpiCheckBox" Grid.Row="1" Grid.Column="0" Margin="0,5,0,5" Content="Use source/default DPI"
-                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay, TargetNullValue=True, FallbackValue=True}"/>
+                          IsChecked="{Binding Settings, ConverterParameter=ImageUseOriginalDpi|System.Boolean, Converter={StaticResource ConversionSettingsToValueType}, Mode=TwoWay}"/>
             </Grid>
         </Grid>
     </DataTemplate>
