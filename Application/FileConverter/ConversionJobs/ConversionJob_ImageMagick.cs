@@ -1,4 +1,4 @@
-﻿// <copyright file="ConversionJob_ImageMagick.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
+// <copyright file="ConversionJob_ImageMagick.cs" company="AAllard">License: http://www.gnu.org/licenses/gpl.html GPL version 3.</copyright>
 
 namespace FileConverter.ConversionJobs
 {
@@ -9,7 +9,7 @@ namespace FileConverter.ConversionJobs
 
     public class ConversionJob_ImageMagick : ConversionJob
     {
-        private const float BaseDpiForPdfConversion = 200f;
+        private const float BaseDpiForPdfConversion = 300f;
         private const int PdfSuperSamplingRatio = 1;
 
         private bool isInputFilePdf;
@@ -114,6 +114,15 @@ namespace FileConverter.ConversionJobs
             MagickReadSettings settings = new MagickReadSettings();
 
             float dpi = BaseDpiForPdfConversion;
+            if (!this.ConversionPreset.GetSettingsValue<bool>(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi))
+            {
+                dpi = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageDpi);
+                if (dpi <= 0)
+                {
+                    dpi = BaseDpiForPdfConversion;
+                }
+            }
+
             float scaleFactor = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageScale);
             if (Math.Abs(scaleFactor - 1f) >= 0.005f)
             {
@@ -213,6 +222,22 @@ namespace FileConverter.ConversionJobs
                 }
             }
 
+            if (this.ConversionPreset.OutputType == OutputType.Avif
+                || this.ConversionPreset.OutputType == OutputType.Png
+                || this.ConversionPreset.OutputType == OutputType.Jpg
+                || this.ConversionPreset.OutputType == OutputType.Webp)
+            {
+                if (!this.ConversionPreset.GetSettingsValue<bool>(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi))
+                {
+                    float dpi = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageDpi);
+                    if (dpi > 0)
+                    {
+                        Debug.Log($"Density: {dpi}dpi.");
+                        image.Density = new Density(dpi);
+                    }
+                }
+            }
+
             Debug.Log($"Convert image (output: {this.OutputFilePath}).");
             switch (this.ConversionPreset.OutputType)
             {
@@ -230,8 +255,19 @@ namespace FileConverter.ConversionJobs
                     break;
 
                 case OutputType.Pdf:
-                    Debug.Log($"Density: {BaseDpiForPdfConversion}dpi.");
-                    image.Density = new Density(BaseDpiForPdfConversion);
+                    if (!this.ConversionPreset.GetSettingsValue<bool>(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi))
+                    {
+                        float dpi = this.ConversionPreset.GetSettingsValue<float>(ConversionPreset.ConversionSettingKeys.ImageDpi);
+                        if (dpi > 0)
+                        {
+                            Debug.Log($"Density: {dpi}dpi.");
+                            image.Density = new Density(dpi);
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Preserve source image density.");
+                    }
                     break;
 
                 case OutputType.Webp:
