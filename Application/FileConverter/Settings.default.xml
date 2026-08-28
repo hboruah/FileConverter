@@ -212,6 +212,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="VideoScale" Value="1" />
         <Settings Key="VideoRotation" Value="0" />
@@ -258,6 +259,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="VideoScale" Value="0.75" />
         <Settings Key="VideoRotation" Value="0" />
@@ -524,6 +526,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageScale" Value="1" />
         <Settings Key="ImageRotation" Value="0" />
@@ -594,6 +597,41 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
+        <InputPostConversionAction>None</InputPostConversionAction>
+        <Settings Key="ImageQuality" Value="85" />
+        <Settings Key="ImageScale" Value="1" />
+        <Settings Key="ImageRotation" Value="0" />
+        <Settings Key="ImageClampSizePowerOf2" Value="False" />
+        <Settings Key="ImageMaximumSize" Value="0" />
+        <Settings Key="ImageDpi" Value="300" />
+        <Settings Key="ImageUseOriginalDpi" Value="True" />
+        <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
+    </ConversionPreset>
+    <ConversionPreset Name="To Jxl" OutputType="Jxl" IsDefaultSettings="true">
+        <InputTypes>xcf</InputTypes>
+        <InputTypes>arw</InputTypes>
+        <InputTypes>avif</InputTypes>
+        <InputTypes>bmp</InputTypes>
+        <InputTypes>cr2</InputTypes>
+        <InputTypes>dds</InputTypes>
+        <InputTypes>dng</InputTypes>
+        <InputTypes>exr</InputTypes>
+        <InputTypes>heic</InputTypes>
+        <InputTypes>ico</InputTypes>
+        <InputTypes>jfif</InputTypes>
+        <InputTypes>jpg</InputTypes>
+        <InputTypes>jpeg</InputTypes>
+        <InputTypes>nef</InputTypes>
+        <InputTypes>png</InputTypes>
+        <InputTypes>psd</InputTypes>
+        <InputTypes>raf</InputTypes>
+        <InputTypes>svg</InputTypes>
+        <InputTypes>tga</InputTypes>
+        <InputTypes>tif</InputTypes>
+        <InputTypes>tiff</InputTypes>
+        <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="85" />
         <Settings Key="ImageScale" Value="1" />
@@ -627,6 +665,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="1" />
@@ -660,6 +699,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="90" />
         <Settings Key="ImageScale" Value="1" />
@@ -693,6 +733,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <OutputFileNameTemplate>(p)(f)</OutputFileNameTemplate>
     </ConversionPreset>
@@ -728,6 +769,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageDpi" Value="300" />
         <Settings Key="ImageUseOriginalDpi" Value="True" />
@@ -755,6 +797,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputTypes>gif</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageDpi" Value="300" />
@@ -926,6 +969,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageScale" Value="0.75" />
         <Settings Key="ImageRotation" Value="0" />
@@ -956,6 +1000,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="85" />
         <Settings Key="ImageScale" Value="0.75" />
@@ -989,6 +1034,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="90" />
         <Settings Key="ImageScale" Value="0.75" />
@@ -1022,6 +1068,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="0.75" />
@@ -1197,6 +1244,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageScale" Value="0.5" />
         <Settings Key="ImageRotation" Value="0" />
@@ -1227,6 +1275,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="85" />
         <Settings Key="ImageScale" Value="0.5" />
@@ -1260,6 +1309,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="90" />
         <Settings Key="ImageScale" Value="0.5" />
@@ -1293,6 +1343,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="0.5" />
@@ -1468,6 +1519,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageScale" Value="0.25" />
         <Settings Key="ImageRotation" Value="0" />
@@ -1498,6 +1550,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="85" />
         <Settings Key="ImageScale" Value="0.25" />
@@ -1531,6 +1584,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="90" />
         <Settings Key="ImageScale" Value="0.25" />
@@ -1564,6 +1618,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="0.25" />
@@ -2052,6 +2107,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageScale" Value="1" />
         <Settings Key="ImageRotation" Value="90" />
@@ -2077,6 +2133,7 @@
         <InputTypes>tiff</InputTypes>
         <InputTypes>xcf</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputTypes>dng</InputTypes>
         <InputTypes>nef</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -2110,6 +2167,7 @@
         <InputTypes>tiff</InputTypes>
         <InputTypes>xcf</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputTypes>dng</InputTypes>
         <InputTypes>nef</InputTypes>
         <InputTypes>jfif</InputTypes>
@@ -2148,6 +2206,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="1" />
@@ -2346,6 +2405,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputTypes>dng</InputTypes>
         <InputTypes>nef</InputTypes>
         <InputTypes>dds</InputTypes>
@@ -2382,6 +2442,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="85" />
         <Settings Key="ImageScale" Value="1" />
@@ -2415,6 +2476,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="90" />
         <Settings Key="ImageScale" Value="1" />
@@ -2448,6 +2510,7 @@
         <InputTypes>tif</InputTypes>
         <InputTypes>tiff</InputTypes>
         <InputTypes>webp</InputTypes>
+        <InputTypes>jxl</InputTypes>
         <InputPostConversionAction>None</InputPostConversionAction>
         <Settings Key="ImageQuality" Value="80" />
         <Settings Key="ImageScale" Value="1" />
