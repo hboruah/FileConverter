@@ -82,6 +82,11 @@ namespace FileConverter.ConversionJobs
                         readSettings.Format = MagickFormat.Avif;
                         break;
 
+                    case ".jxl":
+                        // Explicitly set JPEG XL format for proper reading
+                        readSettings.Format = MagickFormat.Jxl;
+                        break;
+
                     case ".cr2":
                         // Requires an explicit image format otherwise the image is interpreted as a TIFF image.
                         readSettings.Format = MagickFormat.Cr2;
@@ -224,8 +229,9 @@ namespace FileConverter.ConversionJobs
             }
 
             if (this.ConversionPreset.OutputType == OutputType.Avif
-                || this.ConversionPreset.OutputType == OutputType.Png
                 || this.ConversionPreset.OutputType == OutputType.Jpg
+                || this.ConversionPreset.OutputType == OutputType.Jxl
+                || this.ConversionPreset.OutputType == OutputType.Png
                 || this.ConversionPreset.OutputType == OutputType.Webp)
             {
                 if (!this.ConversionPreset.GetSettingsValue<bool>(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi))
@@ -252,6 +258,10 @@ namespace FileConverter.ConversionJobs
                     break;
 
                 case OutputType.Jpg:
+                    image.Quality = this.ConversionPreset.GetSettingsValue<uint>(ConversionPreset.ConversionSettingKeys.ImageQuality);
+                    break;
+
+                case OutputType.Jxl:
                     image.Quality = this.ConversionPreset.GetSettingsValue<uint>(ConversionPreset.ConversionSettingKeys.ImageQuality);
                     break;
 
@@ -360,6 +370,10 @@ namespace FileConverter.ConversionJobs
                     {
                         case ".avif":
                             readSettings.Format = MagickFormat.Avif;
+                            break;
+
+                        case ".jxl":
+                            readSettings.Format = MagickFormat.Jxl;
                             break;
 
                         case ".cr2":
