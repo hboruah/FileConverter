@@ -539,6 +539,16 @@ namespace FileConverter
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageMaximumSize, "0");
                     break;
 
+                case OutputType.Jxl:
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "85");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageUseOriginalDpi, "True");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageScale, "1");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageRotation, "0");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageClampSizePowerOf2, "False");
+                    this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageMaximumSize, "0");
+                    break;
+
                 case OutputType.Webp:
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageQuality, "85");
                     this.InitializeSettingsValue(ConversionPreset.ConversionSettingKeys.ImageDpi, "300");
